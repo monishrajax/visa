@@ -5,7 +5,9 @@ import { AlertOctagon, ClipboardList, FileClock, Percent, Radar } from "lucide-r
 
 import { AgentActivityChart } from "@/components/charts/agent-activity";
 import { CoverageDonut } from "@/components/charts/coverage-donut";
+import { DriftBarChart, MttdTrendChart } from "@/components/charts/metrics";
 import { RiskHeatmap } from "@/components/charts/risk-heatmap";
+import { DraggableGraphBoard } from "@/components/dashboard/draggable-graph-board";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Kpi } from "@/components/ui/kpi";
@@ -44,6 +46,22 @@ const activity = [
   { t: "15:00", events: 17 }
 ];
 
+const mttd = [
+  { day: "Mon", mttd: 12.8 },
+  { day: "Tue", mttd: 10.2 },
+  { day: "Wed", mttd: 9.1 },
+  { day: "Thu", mttd: 8.4 },
+  { day: "Fri", mttd: 7.4 }
+];
+
+const drift = [
+  { control: "Enc", drift: 0.12 },
+  { control: "IAM", drift: 0.22 },
+  { control: "Seg", drift: 0.16 },
+  { control: "Logs", drift: 0.27 },
+  { control: "DLP", drift: 0.09 }
+];
+
 export function DashboardSection() {
   return (
     <Section id="dashboard">
@@ -60,82 +78,100 @@ export function DashboardSection() {
         <Kpi label="Exposure Radius" value="2.6" hint="Weighted blast radius across systems/users" delta={{ value: "↑ Medium", tone: "warn" }} />
       </div>
 
-      <div className="mt-6 grid gap-4 lg:grid-cols-3">
+      <div className="mt-6">
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.25 }}
           transition={{ duration: 0.45 }}
-          className="lg:col-span-2"
         >
           <Card>
             <CardHeader>
               <div className="flex items-start justify-between gap-3">
                 <div>
-                  <CardTitle>PCI/PII Risk Heatmap</CardTitle>
-                  <CardDescription>High-signal risk surfaced from email, logs, storage, and IAM.</CardDescription>
+                  <CardTitle>Interactive graphs (drag to rearrange)</CardTitle>
+                  <CardDescription>Moveable widgets for demos and stakeholder walkthroughs.</CardDescription>
                 </div>
-                <Badge className="gap-2">
-                  <Radar className="h-3.5 w-3.5 text-primary" />
-                  Live
+                <Badge variant="subtle" className="gap-2">
+                  <Radar className="h-3.5 w-3.5" />
+                  Live demo
                 </Badge>
               </div>
             </CardHeader>
             <CardContent>
-              <RiskHeatmap cells={[...heatmap]} />
-              <div className="mt-4 grid gap-3 sm:grid-cols-3">
-                <div className="rounded-xl border border-border bg-background/40 p-4">
-                  <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                    <AlertOctagon className="h-4 w-4 text-rose-400" />
-                    Critical signals
-                  </div>
-                  <div className="mt-2 text-lg font-semibold">1</div>
-                </div>
-                <div className="rounded-xl border border-border bg-background/40 p-4">
-                  <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                    <FileClock className="h-4 w-4 text-amber-400" />
-                    Evidence freshness
-                  </div>
-                  <div className="mt-2 text-lg font-semibold">~6 min</div>
-                </div>
-                <div className="rounded-xl border border-border bg-background/40 p-4">
-                  <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                    <Percent className="h-4 w-4 text-primary" />
-                    Auto-mapped controls
-                  </div>
-                  <div className="mt-2 text-lg font-semibold">214</div>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.25 }}
-          transition={{ duration: 0.45, delay: 0.05 }}
-        >
-          <Card className="h-full">
-            <CardHeader>
-              <CardTitle>Compliance Coverage</CardTitle>
-              <CardDescription>Mapped controls with validated telemetry evidence.</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <CoverageDonut covered={214} total={232} label="Mapped + validated" />
-              <Separator className="my-4" />
-              <div className="grid gap-3">
-                {[
-                  { k: "PCI DSS controls", v: "104 / 112" },
-                  { k: "PII safeguards", v: "76 / 80" },
-                  { k: "Audit artifacts", v: "34 / 40" }
-                ].map((x) => (
-                  <div key={x.k} className="flex items-center justify-between rounded-lg border border-border bg-background/40 px-3 py-2">
-                    <div className="text-xs text-muted-foreground">{x.k}</div>
-                    <div className="text-xs font-medium">{x.v}</div>
-                  </div>
-                ))}
-              </div>
+              <DraggableGraphBoard
+                items={[
+                  {
+                    id: "coverage",
+                    title: "Compliance Coverage",
+                    description: "Mapped controls with validated evidence",
+                    initial: { x: 0, y: 0 },
+                    size: "md",
+                    content: (
+                      <div className="h-full">
+                        <CoverageDonut covered={214} total={232} label="Mapped + validated" />
+                        <Separator className="my-3" />
+                        <div className="grid gap-2">
+                          {[
+                            { k: "PCI DSS controls", v: "104 / 112" },
+                            { k: "PII safeguards", v: "76 / 80" },
+                            { k: "Audit artifacts", v: "34 / 40" }
+                          ].map((x) => (
+                            <div
+                              key={x.k}
+                              className="flex items-center justify-between rounded-lg border border-border bg-background/40 px-3 py-2"
+                            >
+                              <div className="text-xs text-muted-foreground">{x.k}</div>
+                              <div className="text-xs font-medium">{x.v}</div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )
+                  },
+                  {
+                    id: "activity",
+                    title: "Agent Activity Timeline",
+                    description: "Events per hour across agents",
+                    initial: { x: 420, y: 0 },
+                    size: "lg",
+                    content: (
+                      <div className="h-full">
+                        <AgentActivityChart data={activity} />
+                        <Separator className="my-3" />
+                        <div className="grid gap-2">
+                          {[
+                            ["Interpretation Agent", "Mapped 12 controls to Snowflake roles"],
+                            ["Detection Agent", "Confirmed PAN in email attachment"],
+                            ["Evidence Agent", "Generated audit bundle v1.4 for PCI Req. 3"]
+                          ].map(([k, v]) => (
+                            <div key={k} className="rounded-lg border border-border bg-background/40 px-3 py-2">
+                              <div className="text-xs font-medium">{k}</div>
+                              <div className="mt-0.5 text-xs text-muted-foreground">{v}</div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )
+                  },
+                  {
+                    id: "mttd",
+                    title: "MTTD Trend",
+                    description: "Detection speed over the last week",
+                    initial: { x: 0, y: 310 },
+                    size: "md",
+                    content: <MttdTrendChart data={mttd} />
+                  },
+                  {
+                    id: "drift",
+                    title: "Control Drift Score",
+                    description: "Drift by control area (0 → 1)",
+                    initial: { x: 420, y: 320 },
+                    size: "md",
+                    content: <DriftBarChart data={drift} />
+                  }
+                ]}
+              />
             </CardContent>
           </Card>
         </motion.div>
@@ -199,23 +235,41 @@ export function DashboardSection() {
 
         <Card className="lg:col-span-1">
           <CardHeader>
-            <CardTitle>Agent Activity Timeline</CardTitle>
-            <CardDescription>Events per hour across discovery → remediation → evidence.</CardDescription>
+            <div className="flex items-start justify-between gap-3">
+              <div>
+                <CardTitle>PCI/PII Risk Heatmap</CardTitle>
+                <CardDescription>High-signal risk surfaced from email, logs, storage, and IAM.</CardDescription>
+              </div>
+              <Badge className="gap-2">
+                <Radar className="h-3.5 w-3.5 text-primary" />
+                Live
+              </Badge>
+            </div>
           </CardHeader>
           <CardContent>
-            <AgentActivityChart data={activity} />
-            <Separator className="my-4" />
-            <div className="grid gap-2">
-              {[
-                ["Interpretation Agent", "Mapped 12 controls to Snowflake roles"],
-                ["Detection Agent", "Confirmed PAN in email attachment"],
-                ["Evidence Agent", "Generated audit bundle v1.4 for PCI Req. 3"]
-              ].map(([k, v]) => (
-                <div key={k} className="rounded-lg border border-border bg-background/40 px-3 py-2">
-                  <div className="text-xs font-medium">{k}</div>
-                  <div className="mt-0.5 text-xs text-muted-foreground">{v}</div>
+            <RiskHeatmap cells={[...heatmap]} />
+            <div className="mt-4 grid gap-3">
+              <div className="rounded-xl border border-border bg-background/40 p-4">
+                <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                  <AlertOctagon className="h-4 w-4 text-rose-400" />
+                  Critical signals
                 </div>
-              ))}
+                <div className="mt-2 text-lg font-semibold">1</div>
+              </div>
+              <div className="rounded-xl border border-border bg-background/40 p-4">
+                <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                  <FileClock className="h-4 w-4 text-amber-400" />
+                  Evidence freshness
+                </div>
+                <div className="mt-2 text-lg font-semibold">~6 min</div>
+              </div>
+              <div className="rounded-xl border border-border bg-background/40 p-4">
+                <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                  <Percent className="h-4 w-4 text-primary" />
+                  Auto-mapped controls
+                </div>
+                <div className="mt-2 text-lg font-semibold">214</div>
+              </div>
             </div>
           </CardContent>
         </Card>

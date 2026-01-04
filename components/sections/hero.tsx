@@ -9,11 +9,11 @@ import { Section } from "@/components/ui/section";
 
 export function HeroSection() {
   return (
-    <Section className="pt-14 sm:pt-20">
-      <div className="grid items-center gap-10 lg:grid-cols-2">
-        <div>
+    <Section className="">
+      <div className="grid gap-10 lg:grid-cols-2 top-0">
+        <div className="top-0">
           <motion.div
-            initial={{ opacity: 0, y: 10 }}
+            initial={{ opacity: 0, y: 5 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
             className="flex flex-wrap items-center gap-2"
@@ -32,9 +32,9 @@ export function HeroSection() {
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.05 }}
-            className="mt-6 text-4xl sm:text-5xl font-semibold tracking-tight"
+            className="mt-6 text-2xl sm:text-5xl font-semibold tracking-tight"
           >
-            Autonomous Agentic AI for Continuous PCI & PII Compliance
+            Autonomous Agentic AI for continuous compliance in PCI and PII
           </motion.h1>
 
           <motion.p

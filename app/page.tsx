@@ -13,8 +13,6 @@ import { FinalCtaSection } from "@/components/sections/final-cta";
 export default function HomePage() {
   return (
     <div className="relative">
-      <div className="pointer-events-none absolute inset-0 glow" />
-      <div className="pointer-events-none absolute inset-0 opacity-40 grid-mask" />
       <HeroSection />
       <ProblemSection />
       <SolutionOverviewSection />

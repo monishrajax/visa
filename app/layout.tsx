@@ -1,38 +1,50 @@
 import type { Metadata } from "next";
 import "./globals.css";
 
-import { ThemeScript } from "@/components/theme/theme-script";
-import { SiteHeader } from "@/components/site-header";
-import { SiteFooter } from "@/components/site-footer";
+import { ClerkProvider } from "@clerk/nextjs";
+import { Navbar } from "@/components/layout/navbar";
+import { Footer } from "@/components/layout/footer";
+import { FloatingCreditCard } from "@/components/ui/floating-credit-card";
 import type { ReactNode } from "react";
 import { Inter } from "next/font/google";
 
 const inter = Inter({
   subsets: ["latin"],
-  display: "swap"
+  display: "swap",
+  variable: "--font-inter",
 });
 
 export const metadata: Metadata = {
-  title: "Agentic AI Continuous PCI/PII Compliance Platform",
+  title: "VisaGuard | Automated PCI & PII Compliance Platform",
   description:
-    "Autonomous agentic AI for continuous PCI & PII compliance: real-time regulatory interpretation, risk detection, and audit-ready evidence — without manual overhead."
+    "Enterprise-grade compliance automation for financial services. Continuous monitoring, real-time risk detection, and audit-ready evidence generation powered by agentic AI.",
+  keywords: [
+    "PCI compliance",
+    "PII protection",
+    "compliance automation",
+    "financial services",
+    "regulatory compliance",
+    "audit automation",
+    "fintech compliance",
+  ],
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <head>
-        <ThemeScript />
-      </head>
-      <body className={inter.className}>
-        <div className="min-h-screen bg-background text-foreground">
-          <SiteHeader />
-          <main>{children}</main>
-          <SiteFooter />
-        </div>
-      </body>
-    </html>
+    <ClerkProvider>
+      <html lang="en" className="dark" suppressHydrationWarning>
+        <head>
+          <meta name="theme-color" content="#0B1C2D" />
+        </head>
+        <body className={`${inter.variable} font-sans`}>
+          <div className="min-h-screen bg-background text-foreground relative">
+            <FloatingCreditCard />
+            <Navbar />
+            <main className="relative z-20">{children}</main>
+            <Footer />
+          </div>
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }
-
-

@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { Menu, X } from "lucide-react";
+import { UserButton, useUser } from "@clerk/nextjs";
 
 import { ThemeToggle } from "@/components/theme/theme-toggle";
 import { Button } from "@/components/ui/button";
@@ -18,6 +19,7 @@ const nav = [
 
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
+  const { isSignedIn } = useUser();
 
   useEffect(() => {
     if (!open) return;
@@ -55,6 +57,26 @@ export function SiteHeader() {
 
         <div className="flex items-center gap-3">
           <ThemeToggle className="hidden sm:flex" />
+          {isSignedIn ? (
+            <UserButton
+              appearance={{
+                elements: {
+                  avatarBox: "h-9 w-9"
+                }
+              }}
+            />
+          ) : (
+            <>
+              <div className="hidden md:flex items-center gap-2">
+                <Button variant="ghost" size="sm" href="/sign-in">
+                  Sign In
+                </Button>
+                <Button variant="primary" size="sm" href="/sign-up">
+                  Get Started
+                </Button>
+              </div>
+            </>
+          )}
           <div className="hidden md:block">
             <Button variant="secondary" href="#contact">
               Contact
@@ -82,6 +104,26 @@ export function SiteHeader() {
                 Contact
               </Button>
             </div>
+            {!isSignedIn ? (
+              <div className="mt-4 flex items-center gap-2">
+                <Button variant="ghost" size="sm" href="/sign-in" className="flex-1">
+                  Sign In
+                </Button>
+                <Button variant="primary" size="sm" href="/sign-up" className="flex-1">
+                  Get Started
+                </Button>
+              </div>
+            ) : (
+              <div className="mt-4 flex justify-center">
+                <UserButton
+                  appearance={{
+                    elements: {
+                      avatarBox: "h-9 w-9"
+                    }
+                  }}
+                />
+              </div>
+            )}
             <div className="mt-4 grid gap-2">
               {nav.map((n) => (
                 <a

@@ -1,31 +1,23 @@
-import { HeroSection } from "@/components/sections/hero";
-import { ProblemSection } from "@/components/sections/problem";
-import { SolutionOverviewSection } from "@/components/sections/solution-overview";
-import { FeaturesSection } from "@/components/sections/features";
-import { ArchitectureSection } from "@/components/sections/architecture";
-import { DashboardSection } from "@/components/sections/dashboard";
-import { ScenarioWalkthroughSection } from "@/components/sections/scenario-walkthrough";
-import { WhyDifferentSection } from "@/components/sections/why-different";
-import { SecurityGovernanceSection } from "@/components/sections/security-governance";
-import { MetricsSection } from "@/components/sections/metrics";
-import { FinalCtaSection } from "@/components/sections/final-cta";
+import { HeroSection } from "@/components/sections/hero-new";
+import { ProblemSection } from "@/components/sections/problem-section";
+import { FeaturesGrid } from "@/components/sections/features-grid";
+import { HowItWorks } from "@/components/sections/how-it-works";
+import { TrustSecurity } from "@/components/sections/trust-security";
+import { UseCases } from "@/components/sections/use-cases";
+import { Testimonials } from "@/components/sections/testimonials";
+import { CtaSection } from "@/components/sections/cta-section";
 
 export default function HomePage() {
   return (
     <div className="relative">
       <HeroSection />
       <ProblemSection />
-      <SolutionOverviewSection />
-      <FeaturesSection />
-      <ArchitectureSection />
-      <DashboardSection />
-      <ScenarioWalkthroughSection />
-      <WhyDifferentSection />
-      <SecurityGovernanceSection />
-      <MetricsSection />
-      <FinalCtaSection />
+      <FeaturesGrid />
+      <HowItWorks />
+      <TrustSecurity />
+      <UseCases />
+      <Testimonials />
+      <CtaSection />
     </div>
   );
 }
-
-

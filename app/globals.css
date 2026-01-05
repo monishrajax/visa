@@ -2,39 +2,81 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Official VISA Brand Colors */
 :root {
-  --background: 0 0% 100%;
-  --foreground: 222.2 84% 4.9%;
-  --card: 0 0% 100%;
-  --card-foreground: 222.2 84% 4.9%;
-  --muted: 210 40% 96%;
-  --muted-foreground: 215.4 16.3% 46.9%;
-  --border: 214.3 31.8% 91.4%;
-  --ring: 221.2 83.2% 53.3%;
-  --primary: 221.2 83.2% 53.3%;
-  --primary-foreground: 210 40% 98%;
-  --accent: 244 75% 57%;
-  --accent-foreground: 210 40% 98%;
+  /* Dark Enterprise Blue (#0B1C2D) */
+  --background: 210 60% 11%;
+  --foreground: 210 20% 98%;
+  
+  /* Card backgrounds (using a blend of Dark Enterprise Blue) */
+  --card: 210 50% 14%;
+  --card-foreground: 210 20% 98%;
+  
+  /* Muted elements */
+  --muted: 210 40% 20%;
+  --muted-foreground: 215 15% 65%;
+  
+  /* Borders */
+  --border: 210 35% 22%;
+  
+  /* Ring/Focus - Visa Gold */
+  --ring: 44 100% 48%;
+  
+  /* Primary - Official Visa Gold (#F7B600) */
+  --primary: 44 100% 48%;
+  --primary-foreground: 210 60% 11%;
+  
+  /* Accent - Soft Visa Gold */
+  --accent: 44 100% 70%;
+  --accent-foreground: 210 60% 11%;
+  
+  /* Secondary - Visa Blue (#1A1F71) */
+  --secondary: 236 63% 28%;
+  --secondary-foreground: 210 20% 98%;
+
+  /* Darkest Blue for footer */
+  --footer: 210 60% 8%;
 }
 
 .dark {
-  --background: 222.2 84% 4.9%;
-  --foreground: 210 40% 98%;
-  --card: 222.2 84% 6.5%;
-  --card-foreground: 210 40% 98%;
-  --muted: 217.2 32.6% 17.5%;
-  --muted-foreground: 215 20.2% 65.1%;
-  --border: 217.2 32.6% 17.5%;
-  --ring: 224.3 76.3% 48%;
-  --primary: 224.3 76.3% 48%;
-  --primary-foreground: 210 40% 98%;
-  --accent: 252 92% 65%;
-  --accent-foreground: 210 40% 98%;
+  --background: 210 60% 11%;
+  --foreground: 210 20% 98%;
+  --card: 210 50% 14%;
+  --card-foreground: 210 20% 98%;
+  --muted: 210 40% 20%;
+  --muted-foreground: 215 15% 65%;
+  --border: 210 35% 22%;
+  --ring: 44 100% 48%;
+  --primary: 44 100% 48%;
+  --primary-foreground: 210 60% 11%;
+  --accent: 44 100% 70%;
+  --accent-foreground: 210 60% 11%;
+  --secondary: 236 63% 28%;
+  --secondary-foreground: 210 20% 98%;
+  --footer: 210 60% 8%;
 }
 
-html,
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
 body {
   height: 100%;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Enhanced smooth scrolling */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  * {
+    scroll-behavior: inherit;
+  }
 }
 
 body {
@@ -42,18 +84,117 @@ body {
 }
 
 ::selection {
-  background: hsl(var(--primary) / 0.25);
+  background: hsl(var(--primary) / 0.35);
+  color: hsl(var(--primary-foreground));
 }
 
-.grid-mask {
+/* Animated grid background */
+.grid-pattern {
   background-image:
-    radial-gradient(circle at 1px 1px, hsl(var(--border)) 1px, transparent 0);
-  background-size: 28px 28px;
+    linear-gradient(to right, hsl(var(--border) / 0.3) 1px, transparent 1px),
+    linear-gradient(to bottom, hsl(var(--border) / 0.3) 1px, transparent 1px);
+  background-size: 60px 60px;
 }
 
-.glow {
-  background: radial-gradient(700px circle at 50% 15%, hsl(var(--primary) / 0.25), transparent 55%),
-    radial-gradient(900px circle at 65% 35%, hsl(var(--accent) / 0.20), transparent 55%);
+/* Noise texture overlay */
+.noise-overlay {
+  position: relative;
+}
+.noise-overlay::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  opacity: 0.025;
+  pointer-events: none;
+  z-index: 1;
 }
 
+/* Hero glow effect - using Visa Gold and Visa Blue */
+.hero-glow {
+  background: 
+    radial-gradient(ellipse 80% 50% at 50% -20%, hsl(var(--primary) / 0.15), transparent),
+    radial-gradient(ellipse 60% 40% at 80% 60%, hsl(var(--secondary) / 0.4), transparent);
+}
 
+/* Glassmorphism card */
+.glass-card {
+  background: hsl(var(--card) / 0.6);
+  backdrop-filter: blur(12px);
+  border: 1px solid hsl(var(--border) / 0.5);
+}
+
+/* Visa Gold glow on hover */
+.yellow-glow-hover {
+  transition: all 0.3s ease;
+}
+.yellow-glow-hover:hover {
+  box-shadow: 0 0 30px hsl(var(--primary) / 0.3), 0 0 60px hsl(var(--primary) / 0.1);
+  border-color: hsl(var(--primary) / 0.5);
+}
+
+/* Animated underline - Visa Gold */
+.animated-underline {
+  position: relative;
+  display: inline-block;
+}
+.animated-underline::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, hsl(var(--primary)), hsl(var(--accent)));
+  border-radius: 2px;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+.animated-underline:hover::after {
+  transform: scaleX(1);
+}
+
+/* Step connector line */
+.step-connector {
+  position: relative;
+}
+.step-connector::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 100%;
+  width: 100%;
+  height: 2px;
+  border-top: 2px dashed hsl(var(--muted-foreground) / 0.4);
+  transform: translateY(-50%);
+}
+
+/* Smooth scrolling behavior */
+@media (prefers-reduced-motion: no-preference) {
+  * {
+    scroll-behavior: smooth;
+  }
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: hsl(var(--background));
+}
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--muted));
+  border-radius: 5px;
+  transition: background 0.2s ease;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--muted-foreground));
+}
+
+/* Smooth scroll padding for anchor links */
+html {
+  scroll-padding-top: 100px;
+}

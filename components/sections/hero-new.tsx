@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { ArrowRight, Shield, Zap } from "lucide-react";
 import { ScrollZoomHeadline } from "@/components/ui/scroll-zoom-headline";
+import { HeroVisaCard } from "@/components/ui/floating-credit-card";
 
 export function HeroSection() {
   return (
@@ -224,6 +225,9 @@ export function HeroSection() {
                     <span className="text-xs font-medium text-foreground w-10">100%</span>
                   </div>
                 </div>
+
+                {/* Rotating Visa Card - Below Compliance Score */}
+                <HeroVisaCard />
               </div>
             </div>
           </motion.div>

@@ -198,3 +198,10 @@ body {
 html {
   scroll-padding-top: 100px;
 }
+
+/* Hide default cursor when custom cursor is active (desktop only) */
+@media (pointer: fine) {
+  * {
+    cursor: none !important;
+  }
+}

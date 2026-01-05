@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef, useState } from "react";
 import { Quote, ChevronLeft, ChevronRight } from "lucide-react";
+import { ScrollZoomHeadline } from "@/components/ui/scroll-zoom-headline";
 
 const testimonials = [
   {
@@ -60,10 +61,12 @@ export function Testimonials() {
           <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-medium mb-6">
             Customer Stories
           </span>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground">
-            Trusted by compliance{" "}
-            <span className="text-primary">leaders</span>
-          </h2>
+          <ScrollZoomHeadline minScale={0.96} maxScale={1.12} scrollRange={450}>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground">
+              Trusted by compliance{" "}
+              <span className="text-primary">leaders</span>
+            </h2>
+          </ScrollZoomHeadline>
         </motion.div>
 
         {/* Testimonial Carousel */}

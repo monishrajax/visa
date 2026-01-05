@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
 import { AlertTriangle, Clock, FileWarning, ShieldAlert } from "lucide-react";
+import { ScrollZoomHeadline } from "@/components/ui/scroll-zoom-headline";
 
 const painPoints = [
   {
@@ -57,10 +58,12 @@ export function ProblemSection() {
             <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-medium mb-6">
               The Problem
             </span>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground leading-tight">
-              Compliance shouldn&apos;t be a{" "}
-              <span className="text-primary">constant fire drill</span>
-            </h2>
+            <ScrollZoomHeadline minScale={0.96} maxScale={1.12} scrollRange={450}>
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground leading-tight">
+                Compliance shouldn&apos;t be a{" "}
+                <span className="text-primary">constant fire drill</span>
+              </h2>
+            </ScrollZoomHeadline>
             <p className="mt-6 text-lg text-muted-foreground leading-relaxed">
               Financial institutions face mounting regulatory pressure, but legacy
               compliance tools weren&apos;t built for today&apos;s speed. Teams are

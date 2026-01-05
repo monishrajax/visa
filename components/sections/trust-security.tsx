@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
 import { Shield, Lock, Eye, Key, Server, CheckCircle2 } from "lucide-react";
+import { ScrollZoomHeadline } from "@/components/ui/scroll-zoom-headline";
 
 const securityFeatures = [
   {
@@ -62,10 +63,12 @@ export function TrustSecurity() {
             <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-medium mb-6">
               Security & Trust
             </span>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground leading-tight">
-              Enterprise security you can{" "}
-              <span className="text-primary">trust</span>
-            </h2>
+            <ScrollZoomHeadline minScale={0.96} maxScale={1.12} scrollRange={450}>
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground leading-tight">
+                Enterprise security you can{" "}
+                <span className="text-primary">trust</span>
+              </h2>
+            </ScrollZoomHeadline>
             <p className="mt-6 text-lg text-muted-foreground leading-relaxed">
               Built with security-first principles, our platform meets the
               strictest regulatory requirements while protecting your most

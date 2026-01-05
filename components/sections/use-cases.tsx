@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import { HoverCard } from "@/components/ui/hover-card";
 import { WebGLHover } from "@/components/ui/webgl-hover";
+import { ScrollZoomHeadline } from "@/components/ui/scroll-zoom-headline";
 
 const useCases = [
   {
@@ -83,9 +84,11 @@ export function UseCases() {
           <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-medium mb-6">
             Who It&apos;s For
           </span>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground">
-            Built for <span className="text-primary">financial services</span>
-          </h2>
+          <ScrollZoomHeadline minScale={0.96} maxScale={1.12} scrollRange={450}>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground">
+              Built for <span className="text-primary">financial services</span>
+            </h2>
+          </ScrollZoomHeadline>
           <p className="mt-6 text-lg text-muted-foreground">
             Whether you&apos;re a global bank or a fast-growing fintech, our
             platform adapts to your compliance needs.

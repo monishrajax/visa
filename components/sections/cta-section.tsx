@@ -5,6 +5,7 @@ import { useInView } from "framer-motion";
 import { useRef } from "react";
 import Link from "next/link";
 import { ArrowRight, Sparkles } from "lucide-react";
+import { ScrollZoomHeadline } from "@/components/ui/scroll-zoom-headline";
 
 export function CtaSection() {
   const ref = useRef(null);
@@ -46,16 +47,18 @@ export function CtaSection() {
         </motion.div>
 
         {/* Headline */}
-        <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.5, delay: 0.1 }}
-          className="text-3xl sm:text-4xl lg:text-5xl font-bold text-visa-dark leading-tight"
-        >
-          Ready to automate your
-          <br />
-          compliance journey?
-        </motion.h2>
+        <ScrollZoomHeadline minScale={0.96} maxScale={1.12} scrollRange={450}>
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="text-3xl sm:text-4xl lg:text-5xl font-bold text-visa-dark leading-tight"
+          >
+            Ready to automate your
+            <br />
+            compliance journey?
+          </motion.h2>
+        </ScrollZoomHeadline>
 
         {/* Subtext */}
         <motion.p

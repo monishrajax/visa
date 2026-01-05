@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { ArrowRight, Shield, Zap } from "lucide-react";
+import { ScrollZoomHeadline } from "@/components/ui/scroll-zoom-headline";
 
 export function HeroSection() {
   return (
@@ -39,37 +40,39 @@ export function HeroSection() {
             </motion.div>
 
             {/* Headline */}
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-              className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-foreground leading-[1.1] tracking-tight"
-            >
-              Automated{" "}
-              <span className="relative inline-block">
-                <span className="text-primary">PCI & PII</span>
-                <svg
-                  className="absolute -bottom-2 left-0 w-full"
-                  viewBox="0 0 200 12"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <motion.path
-                    initial={{ pathLength: 0 }}
-                    animate={{ pathLength: 1 }}
-                    transition={{ duration: 0.8, delay: 0.5 }}
-                    d="M2 8 C 50 2, 150 2, 198 8"
-                    stroke="hsl(var(--primary))"
-                    strokeWidth="3"
-                    strokeLinecap="round"
-                  />
-                </svg>
-              </span>
-              <br />
-              Compliance for
-              <br />
-              Financial Services
-            </motion.h1>
+            <ScrollZoomHeadline minScale={0.98} maxScale={1.15} scrollRange={500}>
+              <motion.h1
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.1 }}
+                className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-foreground leading-[1.1] tracking-tight"
+              >
+                Automated{" "}
+                <span className="relative inline-block">
+                  <span className="text-primary">PCI & PII</span>
+                  <svg
+                    className="absolute -bottom-2 left-0 w-full"
+                    viewBox="0 0 200 12"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <motion.path
+                      initial={{ pathLength: 0 }}
+                      animate={{ pathLength: 1 }}
+                      transition={{ duration: 0.8, delay: 0.5 }}
+                      d="M2 8 C 50 2, 150 2, 198 8"
+                      stroke="hsl(var(--primary))"
+                      strokeWidth="3"
+                      strokeLinecap="round"
+                    />
+                  </svg>
+                </span>
+                <br />
+                Compliance for
+                <br />
+                Financial Services
+              </motion.h1>
+            </ScrollZoomHeadline>
 
             {/* Subheadline */}
             <motion.p

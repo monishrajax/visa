@@ -16,51 +16,66 @@ export function FloatingCreditCard() {
 
   return (
     <div className="fixed inset-0 pointer-events-none overflow-hidden z-[1]">
-      {/* Multiple floating cards at different positions */}
-      {Array.from({ length: 3 }).map((_, i) => {
+      {/* Multiple floating cards at different positions across the entire screen */}
+      {Array.from({ length: 6 }).map((_, i) => {
         const positions = [
-          { left: "10%", top: "20%" },
-          { left: "75%", top: "60%" },
-          { left: "45%", top: "80%" },
+          { left: "5%", top: "15%", scale: 0.8, mobile: true },
+          { left: "80%", top: "25%", scale: 0.7, mobile: false },
+          { left: "15%", top: "65%", scale: 0.9, mobile: true },
+          { left: "85%", top: "70%", scale: 0.75, mobile: false },
+          { left: "50%", top: "10%", scale: 0.65, mobile: false },
+          { left: "60%", top: "85%", scale: 0.85, mobile: true },
         ];
 
+        const position = positions[i];
+        
         return (
           <motion.div
             key={`card-${i}`}
-            className="absolute"
+            className={`absolute ${position.mobile ? 'hidden md:block' : ''}`}
             style={{
-              left: positions[i].left,
-              top: positions[i].top,
+              left: position.left,
+              top: position.top,
               transformStyle: "preserve-3d",
               perspective: "1000px",
+              transform: `scale(${position.scale})`,
             }}
             animate={{
               rotateZ: [0, 360],
-              y: [0, -40, 0],
-              x: [0, Math.sin(i) * 25, 0],
+              y: [0, -50, 0],
+              x: [0, Math.sin(i) * 30, 0],
+              rotateY: [0, 15, -15, 0],
             }}
             transition={{
-              duration: 15 + i * 3,
+              duration: 18 + i * 4,
               repeat: Infinity,
               ease: "easeInOut",
-              delay: i * 2,
+              delay: i * 1.5,
             }}
           >
-            <div className="relative w-72 h-44 rounded-2xl border-2 border-primary/30 shadow-2xl" style={{ perspective: "1000px" }}>
+            <div 
+              className="relative w-72 h-44 rounded-2xl border-2 border-primary/40 shadow-2xl" 
+              style={{ 
+                perspective: "1000px",
+                opacity: 0.6 + (i % 3) * 0.1, // Varying opacity for depth
+              }}
+            >
               {/* Card Front */}
               <motion.div
                 className="absolute inset-0 rounded-2xl p-6 backdrop-blur-sm"
                 style={{
                   transformStyle: "preserve-3d",
                   background: "linear-gradient(135deg, #0B1C2D 0%, #102A43 50%, #1A1F71 100%)",
-                  border: "2px solid rgba(247, 182, 0, 0.3)",
+                  border: "2px solid rgba(247, 182, 0, 0.4)",
+                  boxShadow: "0 8px 32px rgba(247, 182, 0, 0.15)",
                 }}
                 animate={{
                   rotateY: [0, 360],
-                  rotateX: [0, 10, -10, 0],
+                  rotateX: [0, 12, -12, 0],
+                  rotateZ: [0, 5, -5, 0],
                 }}
                 transition={{
-                  duration: 20 + i * 5,
+                  duration: 25 + i * 6,
                   repeat: Infinity,
                   ease: "linear",
                   delay: i * 2,
@@ -119,8 +134,20 @@ export function FloatingCreditCard() {
                 </div>
               </motion.div>
 
-              {/* Card Glow Effect */}
-              <div className="absolute -inset-2 bg-primary/20 rounded-2xl blur-2xl opacity-50" />
+              {/* Card Glow Effect - Enhanced */}
+              <motion.div 
+                className="absolute -inset-4 bg-primary/30 rounded-2xl blur-3xl"
+                animate={{
+                  opacity: [0.3, 0.5, 0.3],
+                  scale: [1, 1.1, 1],
+                }}
+                transition={{
+                  duration: 4 + i,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                  delay: i * 0.5,
+                }}
+              />
             </div>
           </motion.div>
         );

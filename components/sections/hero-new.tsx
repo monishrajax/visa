@@ -91,14 +91,14 @@ export function HeroSection() {
               className="mt-10 flex flex-col sm:flex-row gap-4"
             >
               <Link
-                href="#demo"
+                href="https://visaiitm.vercel.app"
                 className="group inline-flex items-center justify-center gap-2 px-8 py-4 text-base font-semibold bg-primary text-primary-foreground rounded-xl hover:bg-accent transition-all shadow-glow hover:shadow-glow-lg"
               >
                 Start Free Trial
                 <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
               </Link>
               <Link
-                href="#product"
+                href="https://visaiitm.vercel.app"
                 className="inline-flex items-center justify-center gap-2 px-8 py-4 text-base font-semibold text-primary border-2 border-primary/30 rounded-xl hover:border-primary hover:bg-primary/5 transition-all"
               >
                 View Demo

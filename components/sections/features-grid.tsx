@@ -15,7 +15,6 @@ import {
 import { HoverCard } from "@/components/ui/hover-card";
 import { WebGLHover } from "@/components/ui/webgl-hover";
 import { ScrollZoomHeadline } from "@/components/ui/scroll-zoom-headline";
-import Image from "next/image";
 
 const features = [
   {
@@ -207,77 +206,8 @@ export function FeaturesGrid() {
           </p>
         </motion.div>
 
-        {/* Layout: Features Grid with Image */}
-        <div className="relative">
-          {/* Visa Documents Image - Desktop Position (Right side) */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9, rotate: -2 }}
-            animate={isInView ? { opacity: 1, scale: 1, rotate: 0 } : {}}
-            transition={{ duration: 0.7, delay: 0.3 }}
-            className="absolute -right-4 -top-8 lg:-right-12 lg:-top-12 xl:-right-20 xl:-top-16 hidden lg:block w-[320px] xl:w-[420px] z-0 pointer-events-none"
-          >
-            <div className="relative">
-              {/* Glow effect behind image */}
-              <div className="absolute inset-0 bg-primary/20 rounded-3xl blur-3xl transform rotate-6" />
-              
-              {/* Image container with elegant styling */}
-              <div className="relative rounded-2xl overflow-hidden border-2 border-primary/30 shadow-2xl bg-card/50 backdrop-blur-sm">
-                <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-accent/5 z-10 pointer-events-none" />
-                <Image
-                  src="/images/visa-documents.jpg"
-                  alt="Official Visa documents with security patterns and stamps"
-                  width={450}
-                  height={550}
-                  className="w-full h-auto object-cover opacity-90"
-                  style={{
-                    objectPosition: "center",
-                  }}
-                  priority={false}
-                />
-                
-                {/* Overlay gradient for better integration */}
-                <div className="absolute inset-0 bg-gradient-to-t from-background/40 via-transparent to-transparent pointer-events-none" />
-              </div>
-              
-              {/* Decorative corner accent */}
-              <div className="absolute -bottom-4 -left-4 w-24 h-24 bg-primary/20 rounded-full blur-2xl" />
-            </div>
-          </motion.div>
-
-          {/* Visa Documents Image - Mobile/Tablet Position (Below header, before grid) */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.7, delay: 0.2 }}
-            className="lg:hidden mb-12 max-w-md mx-auto"
-          >
-            <div className="relative">
-              {/* Glow effect behind image */}
-              <div className="absolute inset-0 bg-primary/15 rounded-2xl blur-2xl" />
-              
-              {/* Image container */}
-              <div className="relative rounded-xl overflow-hidden border border-primary/30 shadow-xl bg-card/50 backdrop-blur-sm">
-                <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-accent/5 z-10 pointer-events-none" />
-                <Image
-                  src="/images/visa-documents.jpg"
-                  alt="Official Visa documents with security patterns and stamps"
-                  width={400}
-                  height={500}
-                  className="w-full h-auto object-cover opacity-90"
-                  style={{
-                    objectPosition: "center",
-                  }}
-                  priority={false}
-                />
-                
-                {/* Overlay gradient */}
-                <div className="absolute inset-0 bg-gradient-to-t from-background/50 via-transparent to-transparent pointer-events-none" />
-              </div>
-            </div>
-          </motion.div>
-
-          {/* Features Grid */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 relative z-10">
+        {/* Features Grid */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {features.map((feature, index) => (
             <motion.div
               key={feature.title}
@@ -332,7 +262,6 @@ export function FeaturesGrid() {
               </WebGLHover>
             </motion.div>
           ))}
-          </div>
         </div>
       </div>
     </section>
